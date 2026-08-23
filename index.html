@@ -101,25 +101,22 @@
             decodeRules[encodeRules[key]] = key;
         }
 
-        // 暗号化の処理
+        // 暗号化の処理（絵文字を正しく扱えるように修正）
         function encryptText() {
             let text = document.getElementById("inputText").value;
             let result = "";
-            for (let i = 0; i < text.length; i++) {
-                let char = text[i];
-                // ルールにあれば絵文字に、なければそのまま
+            // [...text] を使うことで、絵文字も1文字ずつ正確に分解できる
+            for (let char of [...text]) {
                 result += encodeRules[char] !== undefined ? encodeRules[char] : char;
             }
             document.getElementById("resultOutput").innerText = result;
         }
 
-        // 復元の処理
+        // 復元の処理（絵文字を正しく扱えるように修正）
         function decryptText() {
             let text = document.getElementById("inputText").value;
             let result = "";
-            for (let i = 0; i < text.length; i++) {
-                let char = text[i];
-                // ルールにあればひらがなに、なければそのまま
+            for (let char of [...text]) {
                 result += decodeRules[char] !== undefined ? decodeRules[char] : char;
             }
             document.getElementById("resultOutput").innerText = result;
