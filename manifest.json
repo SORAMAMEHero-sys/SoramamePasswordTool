@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "そらまめ式絵文字式!!暗号化ツール",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "そらまめ式暗号化ツール",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "soramamepassword",
+  "description": "絵文字式暗号化ツール"
+}
