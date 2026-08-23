@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoramamePasswordTool</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result-box {
+            background: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            word-break: break-all;
+            min-height: 30px;
+            font-size: 18px;
+        }
+        .label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>そらまめ式暗号ツール</h2>
+
+    <label class="label">文字を入力（ひらがな ⇔ 絵文字）:</label>
+    <textarea id="inputText" placeholder="ここに入力してください（例：おそらまめ）"></textarea>
+
+    <br>
+    <button onclick="encryptText()">暗号化する</button>
+    <button onclick="decryptText()">復元する</button>
+
+    <label class="label">結果:</label>
+    <div id="resultOutput" class="result-box">ここに結果が表示されます</div>
+
+    <script>
+        // 変換ルール（ひらがな ➔ 絵文字）
+        const encodeRules = {
+            // あ行
+            "あ": "😀", "い": "😃", "う": "😄", "え": "😁", "お": "😆",
+            // か行
+            "か": "🥹", "き": "😅", "く": "😂", "け": "🤣", "こ": "🥲",
+            // さ行
+            "さ": "☺️", "し": "😊", "す": "😇", "せ": "🙂", "そ": "🙃",
+            // た行
+            "た": "😉", "ち": "😌", "つ": "😍", "て": "🥰", "と": "😘",
+            // な行
+            "な": "😗", "に": "😙", "ぬ": "😚", "ね": "😋", "の": "😛",
+            // は行
+            "は": "😝", "ひ": "😜", "ふ": "🤪", "へ": "🤨", "ほ": "🧐",
+            // ま行
+            "ま": "🤓", "み": "😎", "む": "🥸", "め": "🤩", "も": "🥳",
+            // や行
+            "や": "😏", "ゆ": "😒", "よ": "😞",
+            // ら行
+            "ら": "😔", "り": "😟", "る": "😕", "れ": "🙁", "ろ": "☹️",
+            // わ行・ん
+            "わ": "😣", "を": "😖", "ん": "😫"
+        };
+
+        // 復元用ルール（絵文字 ➔ ひらがな）を自動作成
+        const decodeRules = {};
+        for (let key in encodeRules) {
+            decodeRules[encodeRules[key]] = key;
+        }
+
+        // 暗号化の処理
+        function encryptText() {
+            let text = document.getElementById("inputText").value;
+            let result = "";
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                // ルールにあれば絵文字に、なければそのまま
+                result += encodeRules[char] !== undefined ? encodeRules[char] : char;
+            }
+            document.getElementById("resultOutput").innerText = result;
+        }
+
+        // 復元の処理
+        function decryptText() {
+            let text = document.getElementById("inputText").value;
+            let result = "";
+            for (let i = 0; i < text.length; i++) {
+                let char = text[i];
+                // ルールにあればひらがなに、なければそのまま
+                result += decodeRules[char] !== undefined ? decodeRules[char] : char;
+            }
+            document.getElementById("resultOutput").innerText = result;
+        }
+    </script>
+
+</body>
+</html>
